@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Todolist</h1>
+  <h1>
+    TODO list
+    <a href="{% url 'todo:task-create' %}" class="btn btn-primary link-to-page">
+      Add
+    </a>
+  </h1>
+
+  {% if task_list %}
+    {% for task in task_list %}
+      {{ task.content }}
+    {% endfor %}
+  {% else %}
+    <p>There are no tags in the service.</p>
+  {% endif %}
 {% endblock %}
