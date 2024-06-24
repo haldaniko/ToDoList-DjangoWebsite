@@ -30,7 +30,10 @@
           </form>
         {% endif %}
       </h5>
-      <p class="mb-2">Created: {{ task.datetime|date:"F j, Y, g:i a" }}</p>
+      <p class="mb-2">
+        Created: {{ task.datetime|date:"F j, Y, g:i a" }} |
+        <span class="text-danger">Deadline: {{ task.deadline|date:"F j, Y, g:i a" }}</span>
+      </p>
       {% if task.tag.all %}
         <p class="text-muted mb-2">Tags:
           {% for tag in task.tag.all %}
