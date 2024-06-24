@@ -39,8 +39,8 @@ class TaskCreateView(generic.CreateView):
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    fields = "__all__"
     success_url = reverse_lazy("todo:task-list")
+    form_class = TaskForm
 
 
 class TaskDeleteView(generic.DeleteView):
