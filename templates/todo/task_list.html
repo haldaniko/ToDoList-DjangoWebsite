@@ -10,16 +10,25 @@
 
   {% if task_list %}
     {% for task in task_list %}
-      <h5>{{ task.content }}
+      <h5>
+        {{ task.content }}
         {% if task.status %}
           <span class="text-success">[Done]</span>
-
+          <form action="{% url 'todo:task-toggle-status' pk=task.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary link-to-page">
+              Undo
+            </button>
+          </form>
         {% else %}
           <span class="text-danger">[Not Done]</span>
+          <form action="{% url 'todo:task-toggle-status' pk=task.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success link-to-page">
+              Complete
+            </button>
+          </form>
         {% endif %}
-        <a class="btn btn-success link-to-page">
-          Complete
-        </a>
       </h5>
       <p class="mb-2">Created: {{ task.datetime|date:"F j, Y, g:i a" }}</p>
       {% if task.tag.all %}
