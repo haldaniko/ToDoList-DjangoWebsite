@@ -10,7 +10,7 @@ class Tag(models.Model):
 
 class Task(models.Model):
     content = models.CharField(max_length=255)
-    datetime = models.DateTimeField
+    datetime = models.DateTimeField()
     deadline = models.DateTimeField(null=True, blank=True)
     status = models.BooleanField()
     tag = models.ManyToManyField(Tag)
