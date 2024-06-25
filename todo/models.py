@@ -13,7 +13,7 @@ class Task(models.Model):
     datetime = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, blank=True)
     status = models.BooleanField(default=False)
-    tag = models.ManyToManyField(Tag, blank=True)
+    tag = models.ManyToManyField(Tag, related_name="tasks", blank=True)
 
     def __str__(self):
         return self.content
