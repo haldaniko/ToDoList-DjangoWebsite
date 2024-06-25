@@ -50,7 +50,6 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy("todo:task-list")
 
 
-@method_decorator(csrf_exempt, name='post')
 class ToggleTaskStatusView(View):
     def post(self, request, *args, **kwargs):
         task = get_object_or_404(Task, pk=self.kwargs['pk'])
