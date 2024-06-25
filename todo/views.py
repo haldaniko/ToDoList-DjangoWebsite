@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views import generic
+from django.utils.decorators import method_decorator
+from django.views import generic, View
+from django.views.decorators.csrf import csrf_exempt
 
 from todo.forms import TaskForm
 from todo.models import Tag, Task
@@ -48,8 +50,10 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy("todo:task-list")
 
 
-def toggle_task_status(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.status = not task.status
-    task.save()
-    return redirect(reverse_lazy("todo:task-list"))
+@method_decorator(csrf_exempt, name='post')
+class ToggleTaskStatusView(View):
+    def post(self, request, *args, **kwargs):
+        task = get_object_or_404(Task, pk=self.kwargs['pk'])
+        task.status = not task.status
+        task.save()
+        return redirect(reverse_lazy("todo:task-list"))
